@@ -1,0 +1,26 @@
+using UnityEngine;
+
+public class RandomButtonController : MonoBehaviour
+{
+    public GameObject button; // 생성할 버튼 프리팹
+    public float buttonLifetime = 3f; // 버튼이 유지될 시간
+
+    void Update()
+    {
+        // 스페이스바를 누르면 버튼을 생성
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CreateButton();
+        }
+    }
+
+    void CreateButton()
+    {
+        // 버튼을 무작위 위치에 생성
+        Vector3 randomPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0f);
+        GameObject newButton = Instantiate(button, randomPosition, Quaternion.identity);
+
+        // 일정 시간이 지난 후에 버튼을 삭제
+        Destroy(newButton, buttonLifetime);
+    }
+}
