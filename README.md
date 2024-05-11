@@ -5,8 +5,5 @@ Our team name, "rhythmequal," not only linguistically describes rhythm but also 
 
 The game mechanics are quite simple! 
 Just press keys or external input devices like a keyboard or mouse to match the music rhythm.
-{
-
-
-}
+That way, you'll score points, haha. Try to accumulate as many points as possible until the song ends!
 Let's dive into the world of music together, shall we?
