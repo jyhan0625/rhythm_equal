@@ -1,0 +1,37 @@
+using UnityEngine;
+
+public class RhythmGameController : MonoBehaviour
+{
+    public AudioSource audioSource; // AudioSource 컴포넌트
+    public AudioClip musicClip; // 음악 클립
+
+    // 노트 타이밍 정보 
+    private float[] noteTimings = { 1.0f, 2.5f, 4.0f, 5.5f };
+    private int currentNoteIndex = 0;
+
+    void Start()
+    {
+        // AudioSource 컴포넌트에 음악 클립을 설정하고 재생
+        audioSource.clip = musicClip;
+        audioSource.Play();
+    }
+
+    void Update()
+    {
+        // 현재 음악 시간을 가져오기
+        float currentTime = audioSource.time;
+
+        // 노트 타이밍에 맞춰 액션 실행
+        if (currentNoteIndex < noteTimings.Length && currentTime >= noteTimings[currentNoteIndex])
+        {
+            TriggerNoteAction();
+            currentNoteIndex++;
+        }
+    }
+
+    void TriggerNoteAction()
+    {
+        // 노트 액션 실행 (예: 노트 생성, 효과 재생 등)
+        Debug.Log("Note Action Triggered at " + audioSource.time + " seconds.");
+    }
+}
