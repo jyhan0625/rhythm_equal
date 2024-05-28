@@ -5,7 +5,7 @@ public class RhythmGameController : MonoBehaviour
     public AudioSource audioSource; // AudioSource 컴포넌트
     public AudioClip musicClip; // 음악 클립
 
-    // 노트 타이밍 정보 (예시)
+    // 노트 타이밍 정보 
     private float[] noteTimings = { 1.0f, 2.5f, 4.0f, 5.5f };
     private int currentNoteIndex = 0;
 
