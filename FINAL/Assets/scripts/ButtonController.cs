@@ -10,6 +10,7 @@ public class ButtonController : MonoBehaviour
     public GameObject Credit;
     public AudioSource MainAudio;
     public AudioSource PlayAudio;
+    public GameObject Score;
 
 
     void Start()
@@ -30,8 +31,9 @@ public class ButtonController : MonoBehaviour
         // AlphabetRespawn 스크립트 활성화
 
         alphabetRespawnScript.Activate();
-        Destroy(Play);
-        Destroy(Credit);
+        Score.SetActive(true);
+        Play.SetActive(false);
+        Credit.SetActive(false);
         MainAudio.Stop();
         PlayAudio.Play();
 
