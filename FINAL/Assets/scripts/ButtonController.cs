@@ -8,7 +8,9 @@ public class ButtonController : MonoBehaviour
     public GameObject canvasObject; // Canvas 객체 참조
     public GameObject Play;
     public GameObject Credit;
-    
+    public AudioSource MainAudio;
+    public AudioSource PlayAudio;
+
 
     void Start()
     {
@@ -30,7 +32,8 @@ public class ButtonController : MonoBehaviour
         alphabetRespawnScript.Activate();
         Destroy(Play);
         Destroy(Credit);
-        
+        MainAudio.Stop();
+        PlayAudio.Play();
 
     }
 }
