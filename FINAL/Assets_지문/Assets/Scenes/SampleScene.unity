@@ -599,7 +599,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600020611}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff5d5465c821a7047b90418cd9c69af0, type: 3}
   m_Name: 
@@ -611,7 +611,7 @@ MonoBehaviour:
   - {fileID: 1193154403}
   - {fileID: 154502545}
   - {fileID: 451228913}
-  spawnInterval: 1
+  spawnInterval: 0.923077
   Score: {fileID: 1221791750}
   ScoreObject: {fileID: 962070713}
   Play: {fileID: 2130930244}

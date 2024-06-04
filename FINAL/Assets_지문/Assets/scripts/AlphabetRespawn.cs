@@ -7,7 +7,6 @@ using UnityEditor.Experimental.GraphView;
 public class AlphabetRespawn : MonoBehaviour
 {
     public GameObject[] alphabetPrefabs; // A, S, D ���ĺ� �̹��� ������ �迭
-    public float spawnInterval = 1f; // ���ĺ� ���� �ֱ� (�� ����)
     public TextMeshProUGUI Score;
     public GameObject ScoreObject;
     public GameObject Play;
@@ -43,10 +42,11 @@ public class AlphabetRespawn : MonoBehaviour
 
     IEnumerator SpawnAlphabet()
     {
+        float[] spawnInterval = { 0.8f, 0.8f / 2, 0.8f * 2 }; //bpm65에 맞춰서 박자 랜덤 생성
 
         while (true)
         {
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(spawnInterval[Random.Range(0,3)]);
 
             // ���� ���ĺ� ����
             GameObject alphabetPrefab = GetRandomAlphabetPrefab();
