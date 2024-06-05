@@ -5,6 +5,7 @@ using TMPro;
 
 public class AlphabetRespawn : MonoBehaviour
 {
+    public GameObject ring;
     public GameObject[] alphabetPrefabs; // A, S, D, J, K, L 프리팹들
     public TextMeshProUGUI Score;
     public TextMeshProUGUI Heart;
@@ -16,7 +17,7 @@ public class AlphabetRespawn : MonoBehaviour
     private RectTransform canvasRectTransform; // Canvas의 RectTransform
     private float padding = 20f; // 위치 패딩
     private Coroutine startCoroutine;
-    private List<GameObject> spawnedAlphabets = new List<GameObject>(); // 스폰된 알파벳을 저장할 리스트
+    private List<(GameObject, GameObject)> spawnedAlphabets = new List<(GameObject, GameObject)>(); // 스폰된 알파벳과 링을 저장할 리스트
 
     void OnEnable()
     {
@@ -49,18 +50,43 @@ public class AlphabetRespawn : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval[Random.Range(0, 3)]);
 
             GameObject alphabetPrefab = GetRandomAlphabetPrefab();
-
             GameObject newAlphabet = Instantiate(alphabetPrefab, transform);
-
+            GameObject newRing = Instantiate(ring, transform);
 
             RectTransform rectTransform = newAlphabet.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = GetRandomPosition(rectTransform.sizeDelta);
+            RectTransform ringRectTransform = newRing.GetComponent<RectTransform>();
+            Vector2 spawnPosition = GetRandomPosition(rectTransform.sizeDelta);
+
+            rectTransform.anchoredPosition = spawnPosition;
+            ringRectTransform.anchoredPosition = spawnPosition;
 
             Destroy destroy = newAlphabet.GetComponent<Destroy>();
             destroy.enabled = true;
 
-            spawnedAlphabets.Add(newAlphabet);
+            spawnedAlphabets.Add((newAlphabet, newRing));
+            StartCoroutine(AnimateRing(newRing));
         }
+    }
+
+    IEnumerator AnimateRing(GameObject ring)
+    {
+        RectTransform rectTransform = ring.GetComponent<RectTransform>();
+        Vector3 originalScale = rectTransform.localScale;
+        float animationDuration = 1.0f;
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < animationDuration)
+        {
+            float t = elapsedTime / animationDuration;
+            rectTransform.localScale = Vector3.Lerp(originalScale * 1.5f, originalScale, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        rectTransform.localScale = originalScale; // 원래 크기로 되돌리기
+
+        // 링이 원래 크기로 돌아간 후에 즉시 삭제
+        Destroy(ring);
     }
 
     void Update()
@@ -98,7 +124,7 @@ public class AlphabetRespawn : MonoBehaviour
     {
         if (spawnedAlphabets.Count > 0)
         {
-            GameObject alphabet = spawnedAlphabets[0]; // 가장 먼저 생성된 알파벳 선택
+            var (alphabet, ring) = spawnedAlphabets[0]; // 가장 먼저 생성된 알파벳과 링 선택
 
             // 사용자 입력 처리 로직
             if (alphabet.name.StartsWith(expectedKey))
